@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>@yield('title', 'NovaBlog admin')</title>
