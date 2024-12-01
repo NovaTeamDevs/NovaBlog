@@ -9,7 +9,7 @@
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link active">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>داشبورد</p>
                     </a>
@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.category.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>لیست دسته بندی ها</p>
                             </a>
