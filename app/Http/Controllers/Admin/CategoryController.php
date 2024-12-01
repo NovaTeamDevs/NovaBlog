@@ -24,7 +24,7 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-
+        return view('admin.category.show');
     }
 
     public function edit(string $id)
