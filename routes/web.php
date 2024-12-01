@@ -18,6 +18,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('edit');
         Route::put('/update/{category}', [CategoryController::class, 'update'])->name('update');
-        Route::delete('/destroy/{category}', [CategoryController::class, 'delete'])->name('delete');
+        Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 });
