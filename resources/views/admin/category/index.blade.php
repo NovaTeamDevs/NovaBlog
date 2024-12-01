@@ -41,8 +41,9 @@
                                             <td>مقالات عملی</td>
                                             <td>منوی اصلی</td>
                                             <td>
+                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
                                                 <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger"><i class="bi bi-trash text-white"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -50,8 +51,9 @@
                                             <td>مقالات عملی</td>
                                             <td>منوی اصلی</td>
                                             <td>
+                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
                                                 <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger"><i class="bi bi-trash text-white"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -59,8 +61,9 @@
                                             <td>مقالات عملی</td>
                                             <td>منوی اصلی</td>
                                             <td>
+                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
                                                 <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger"><i class="bi bi-trash text-white"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -68,8 +71,9 @@
                                             <td>مقالات عملی</td>
                                             <td>منوی اصلی</td>
                                             <td>
+                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
                                                 <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger"><i class="bi bi-trash text-white"></i></button>
+                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>
