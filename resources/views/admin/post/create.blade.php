@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('admin.category.index') }}" class="btn btn-outline-secondary"><i class="bi bi-chevron-left me-2"></i>بازگشت</a>
+                            <a href="{{ route('admin.post.index') }}" class="btn btn-outline-secondary"><i class="bi bi-chevron-left me-2"></i>بازگشت</a>
                             <button type="submit" class="btn btn-success"><i class="bi bi-save me-2"></i>ذخیره</button>
                         </div>
                     </div>
