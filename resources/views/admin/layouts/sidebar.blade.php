@@ -72,19 +72,25 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.comment.index', ['status' => '0']) }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>نظرات در انتظار</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.comment.index', ['status' => '1']) }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>نظرات تایید شده</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('admin.comment.index', ['status' => '2']) }}" class="nav-link">
+                                <i class="nav-icon bi bi-circle"></i>
+                                <p>نظرات رد شده</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.comment.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-circle"></i>
                                 <p>تمام نظرات</p>
                             </a>

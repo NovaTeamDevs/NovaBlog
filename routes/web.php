@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
         Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
         Route::post('/status/{post}', [PostController::class, 'status'])->name('status');
+    });
+
+    Route::prefix('comment')->name('comment.')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('index');
+        Route::get('/show/{comment}', [CommentController::class, 'show'])->name('show');
+        Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('answer');
+        Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('destroy');
+        Route::post('/status/{status}', [CommentController::class, 'status'])->name('status');
     });
 });
