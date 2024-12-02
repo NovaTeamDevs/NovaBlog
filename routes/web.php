@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,5 +41,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('answer');
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('destroy');
         Route::post('/status/{status}', [CommentController::class, 'status'])->name('status');
+    });
+
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+        Route::get('/show/{user}', [UserController::class, 'show'])->name('show');
+        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
+        Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
+        Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 });
