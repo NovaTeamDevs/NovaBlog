@@ -49,9 +49,9 @@
                                             <td><span class="badge bg-success">تایید شده</span></td>
                                             <td><i class="bi bi-check text-success fs-1"></i></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
+                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -64,9 +64,9 @@
                                             <td><span class="badge bg-warning">در انتظار</span></td>
                                             <td><i class="bi bi-x text-danger fs-1"></i></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
+                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -79,9 +79,9 @@
                                             <td><span class="badge bg-success">تایید شده</span></td>
                                             <td><i class="bi bi-x text-danger fs-1"></i></td>
                                             <td>
-                                                <a href="#" class="btn btn-primary"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
+                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>
