@@ -28,64 +28,48 @@
                             <div class="card-body">
                                 <table class="table table-bordered table-striped">
                                     <thead>
-                                        <tr>
-                                            <th style="width: 5%">#</th>
-                                            <th>عنوان</th>
-                                            <th>والد</th>
-                                            <th style="width: 20%">عملیات</th>
-                                        </tr>
+                                    <tr>
+                                        <th style="width: 5%">#</th>
+                                        <th>عنوان</th>
+                                        <th>والد</th>
+                                        <th style="width: 20%">عملیات</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>مقالات عملی</td>
-                                            <td>منوی اصلی</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>مقالات عملی</td>
-                                            <td>منوی اصلی</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>مقالات عملی</td>
-                                            <td>منوی اصلی</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>مقالات عملی</td>
-                                            <td>منوی اصلی</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
+                                    @if($categories->count() > 0)
+                                        @foreach($categories as $category)
+                                            <tr class="align-middle">
+                                                <td>{{ $category->id }}</td>
+                                                <td>{{ $category->name }}</td>
+                                                <td>{{ $category->parent_name }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.category.show', $category) }}" class="btn btn-primary" data-bs-title="نمایش"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                            class="bi bi-eye-fill text-white"></i></a>
+                                                    <a href="{{ route('admin.category.edit', $category) }}" class="btn btn-warning" data-bs-title="ویرایش"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                            class="bi bi-pencil-fill text-white"></i></a>
+                                                    <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            onclick="deleteItem(this)" data-url="{{ route('admin.category.destroy', $category) }}" data-title=""
+                                                            data-token="{{ csrf_token() }}"><i
+                                                            class="bi bi-trash text-white"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <p>موردی یافت نشد</p>
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
                             <div class="card-footer">
                                 <ul class="pagination float-end">
-                                    <li class="page-item"> <a class="page-link" href="#">&laquo;</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">&raquo;</a> </li>
+                                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                                 </ul>
                             </div>
                         </div>

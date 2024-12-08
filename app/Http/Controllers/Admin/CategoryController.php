@@ -3,42 +3,53 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\CategoryCreateRequest;
+use App\Http\Requests\Admin\CategoryUpdateRequest;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        return view('admin.category.index');
+        $categories = Category::all();
+        return view('admin.category.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('admin.category.create');
+        $categories = Category::all();
+        return view('admin.category.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-
+        Category::create($request->validated());
+        return to_route('admin.category.index')->with('success', 'دسته بندی با موفقیت ایجاد شد.');
     }
 
-    public function show(string $id)
+    public function show(Category $category)
     {
-        return view('admin.category.show');
+        return view('admin.category.show', compact('category'));
     }
 
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-
+        $categories = Category::get()->except($category->id);
+        return view('admin.category.edit', compact('category', 'categories'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-
+        $category->update($request->validated());
+        return to_route('admin.category.index')->with('success', 'دسته بندی با موفقیت ویرایش شد.');
     }
 
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-
+        $category->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'حذف دسته بندی مورد نظر انجام شد.'
+        ]);
     }
 }

@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'افزودن دسته بندی - نوا بلاگ')
+@section('title', 'ویرایش دسته بندی - نوا بلاگ')
 
 @section('content')
     <main class="app-main">
@@ -7,25 +7,26 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">افزودن دسته بندی</h3>
+                        <h3 class="mb-0">ویرایش دسته بندی</h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="app-content">
             <div class="container-fluid">
-                <form action="{{ route('admin.category.store') }}" method="post">
+                <form action="{{ route('admin.category.update', $category) }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4 class="card-title">دسته بندی جدید</h4>
+                            <h4 class="card-title">ویرایش دسته بندی</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="name">عنوان</label>
-                                        <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control">
+                                        <input type="text" id="name" name="name" value="{{ old('name', $category->name) }}" class="form-control">
                                         @error('name') <div class="text-danger"><p>{{ $message }}</p></div> @enderror
                                     </div>
                                 </div>
@@ -35,7 +36,7 @@
                                         <select name="parent_id" id="parent_id" class="form-select" data-choices data-selecttext="کلیک برای انتخاب">
                                             <option value="">انتخاب دسته بندی والد</option>
                                             @foreach($categories as $parent)
-                                                <option value="{{ $parent->id }}" @selected(old('parent_id') == $parent->id)>{{ $parent->name }}</option>
+                                                <option value="{{ $parent->id }}" @selected(old('parent_id', $category->parent_id) == $parent->id)>{{ $parent->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('parent_id') <div class="text-danger"><p>{{ $message }}</p></div> @enderror
@@ -44,7 +45,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="description">توضیحات</label>
-                                        <textarea name="description" id="description" cols="5" rows="5" class="form-control">{{ old('description') }}</textarea>
+                                        <textarea name="description" id="description" cols="5" rows="5" class="form-control">{{ old('description', $category->description) }}</textarea>
                                         @error('description') <div class="text-danger"><p>{{ $message }}</p></div> @enderror
                                     </div>
                                 </div>

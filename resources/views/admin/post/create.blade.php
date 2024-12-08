@@ -61,7 +61,7 @@
                                 <div class="col-md-3 col-12">
                                     <div class="form-group">
                                         <label for="status">وضعیت</label>
-                                        <select name="status" id="status" class="form-select" data-choices data-selecttext="کلیک برای انتخاب">
+                                        <select name="status" id="status" class="form-select">
                                             <option value="1">منتشر شده</option>
                                             <option value="2">در انتظار</option>
                                             <option value="3">منتشر نشده</option>
