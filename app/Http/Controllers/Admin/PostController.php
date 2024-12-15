@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.post.index');
+        $posts = Post::when($request->filled('search'), function ($query) use ($request) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        })->paginate();
+        return view('admin.post.index', compact('posts'));
     }
 
     public function create()
@@ -22,28 +26,29 @@ class PostController extends Controller
         //
     }
 
-    public function show(string $id)
+    public function show(Post $post)
     {
         return view('admin.post.show');
     }
 
-    public function edit(string $id)
+    public function edit(Post $post)
     {
         //
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'حذف پست مورد نظر انجام شد.'
+        ]);
     }
 
-    public function status(string $id)
-    {
-
-    }
+    public function status(Post $post) {}
 }
