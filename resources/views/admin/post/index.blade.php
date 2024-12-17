@@ -12,6 +12,9 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            @include('admin.layouts.alerts')
+        </div>
         <div class="app-content">
             <div class="container-fluid">
                 <div class="row">

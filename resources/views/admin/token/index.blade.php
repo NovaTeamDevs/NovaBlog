@@ -12,6 +12,9 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            @include('admin.layouts.alerts')
+        </div>
         <div class="app-content">
             <div class="container-fluid">
                 <div class="row">
@@ -43,7 +46,11 @@
                                             <td>خواندن - نوشتن</td>
                                             <td>توضیحات ندارد</td>
                                             <td>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    onclick="deleteItem(this)" data-url="#" data-title=""
+                                                    data-token="{{ csrf_token() }}"><i
+                                                        class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -12,6 +12,9 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            @include('admin.layouts.alerts')
+        </div>
         <div class="app-content">
             <div class="container-fluid">
                 <div class="row">
@@ -23,14 +26,14 @@
                             <div class="card-body">
                                 <table class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th style="width: 5%">#</th>
-                                        <th>پست</th>
-                                        <th>نویسنده</th>
-                                        <th>نوع</th>
-                                        <th style="width: 10%">وضعیت</th>
-                                        <th style="width: 20%">عملیات</th>
-                                    </tr>
+                                        <tr>
+                                            <th style="width: 5%">#</th>
+                                            <th>پست</th>
+                                            <th>نویسنده</th>
+                                            <th>نوع</th>
+                                            <th style="width: 10%">وضعیت</th>
+                                            <th style="width: 20%">عملیات</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="align-middle">
@@ -42,8 +45,14 @@
                                                 <span class="badge bg-success">تائید شده</span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                        class="bi bi-eye-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    onclick="deleteItem(this)" data-url="#" data-title=""
+                                                    data-token="{{ csrf_token() }}"><i
+                                                        class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -55,8 +64,14 @@
                                                 <span class="badge bg-warning">در انتظار</span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                        class="bi bi-eye-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    onclick="deleteItem(this)" data-url="#" data-title=""
+                                                    data-token="{{ csrf_token() }}"><i
+                                                        class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                         <tr class="align-middle">
@@ -68,8 +83,14 @@
                                                 <span class="badge bg-danger">رد شده</span>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش" data-bs-toggle="tooltip" data-bs-placement="top"><i class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف" data-bs-toggle="tooltip" data-bs-placement="top" onclick="deleteItem(this)" data-url="#" data-title="" data-token="{{ csrf_token() }}"><i class="bi bi-trash text-white"></i></button>
+                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                        class="bi bi-eye-fill text-white"></i></a>
+                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    onclick="deleteItem(this)" data-url="#" data-title=""
+                                                    data-token="{{ csrf_token() }}"><i
+                                                        class="bi bi-trash text-white"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>

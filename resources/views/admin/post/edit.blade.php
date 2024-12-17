@@ -1,7 +1,7 @@
 @use('App\Enum\PostStatusEnum')
 
 @extends('admin.layouts.master')
-@section('title', 'افزودن پست - نوا بلاگ')
+@section('title', 'ویرایش پست - نوا بلاگ')
 
 @section('content')
     <main class="app-main">
@@ -9,26 +9,27 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3 class="mb-0">افزودن پست</h3>
+                        <h3 class="mb-0">ویرایش پست</h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="app-content">
             <div class="container-fluid">
-                <form action="{{ route('admin.post.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.post.update', $post) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4 class="card-title">پست جدید</h4>
+                            <h4 class="card-title">ویرایش پست</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="title">عنوان</label>
-                                        <input type="text" id="title" name="title" value="{{ old('title') }}"
-                                            class="form-control">
+                                        <input type="text" id="title" name="title"
+                                            value="{{ old('title', $post->title) }}" class="form-control">
                                         @error('title')
                                             <div class="text-danger">
                                                 <p>{{ $message }}</p>
@@ -39,8 +40,8 @@
                                 <div class="col-md-4 col-12">
                                     <div class="form-group">
                                         <label for="tags">برچست ها</label>
-                                        <input type="text" id="tags" name="tags" value="{{ old('tags') }}"
-                                            class="form-control" data-taggable>
+                                        <input type="text" id="tags" name="tags"
+                                            value="{{ old('tags', $post->tags) }}" class="form-control" data-taggable>
                                         @error('tags')
                                             <div class="text-danger">
                                                 <p>{{ $message }}</p>
@@ -54,7 +55,7 @@
                                         <select name="category_id" id="category_id" class="form-select" data-choices
                                             data-selecttext="کلیک برای انتخاب">
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                                                <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id) == $category->id)>
                                                     {{ $category->name }}</option>
                                             @endforeach
                                         </select>
@@ -71,7 +72,7 @@
                                         <select name="user_id" id="user_id" class="form-select" data-choices
                                             data-selecttext="کلیک برای انتخاب">
                                             @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
+                                                <option value="{{ $user->id }}" @selected(old('user_id', $post->user_id) == $user->id)>
                                                     {{ $user->full_name }}</option>
                                             @endforeach
                                         </select>
@@ -87,7 +88,7 @@
                                         <label for="status">وضعیت</label>
                                         <select name="status" id="status" class="form-select">
                                             @foreach (PostStatusEnum::cases() as $status)
-                                                <option value="{{ $status->value }}" @selected(old('status') == $status->value)>
+                                                <option value="{{ $status->value }}" @selected(old('status', $post->status->value) == $status->value)>
                                                     {{ __('app.post_status.' . $status->value) }}</option>
                                             @endforeach
                                         </select>
@@ -109,11 +110,16 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    @if (!empty($post->image))
+                                        <div class="p-2">
+                                            <img src="{{ Storage::url($post->image) }}" width="150" heigth="auto" />
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="content">محتوا</label>
-                                        <textarea name="content" id="content" cols="5" rows="15" class="form-control">{{ old('content') }}</textarea>
+                                        <textarea name="content" id="content" cols="5" rows="15" class="form-control">{{ old('content', $post->content) }}</textarea>
                                         @error('content')
                                             <div class="text-danger">
                                                 <p>{{ $message }}</p>
