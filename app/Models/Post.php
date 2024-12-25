@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use App\Enum\PostStatusEnum;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Maize\Markable\Models\Bookmark;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Markable;
 
     protected $fillable = [
         'title',
@@ -19,6 +22,11 @@ class Post extends Model
         'tags',
         'status',
         'image',
+    ];
+
+    protected static $marks = [
+        Like::class,
+        Bookmark::class,
     ];
 
     protected function casts()
@@ -54,5 +62,21 @@ class Post extends Model
             'draft' => 'secondary',
             'pending' => 'warning',
         };
+    }
+
+    public function isLiked(): bool
+    {
+        if (!is_null(auth()->check()))
+            return false;
+
+        return Like::has($this, auth()->user());
+    }
+
+    public function isBookmarked(): bool
+    {
+        if (!is_null(auth()->check()))
+            return false;
+
+        return Bookmark::has($this, auth()->user());
     }
 }

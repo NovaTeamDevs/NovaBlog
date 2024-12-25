@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bcd454e600ffa6e19968b4c1663d5d11",
+    "content-hash": "58c58a2938606352f1620a61c1d82ff5",
     "packages": [
         {
             "name": "brick/math",
@@ -2074,6 +2074,85 @@
             "time": "2024-09-21T08:32:55+00:00"
         },
         {
+            "name": "maize-tech/laravel-markable",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maize-tech/laravel-markable.git",
+                "reference": "e88f4c6d19a54a94fa9759f9d54f47b7232d354b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maize-tech/laravel-markable/zipball/e88f4c6d19a54a94fa9759f9d54f47b7232d354b",
+                "reference": "e88f4c6d19a54a94fa9759f9d54f47b7232d354b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^9.0|^10.0|^11.0",
+                "illuminate/support": "^9.0|^10.0|^11.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.14.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.5|^10.5",
+                "spatie/laravel-ray": "^1.29",
+                "vimeo/psalm": "^4.22|^5.22"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maize\\Markable\\MarkableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maize\\Markable\\": "src",
+                    "Maize\\Markable\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enrico De Lazzari",
+                    "email": "enrico.delazzari@maize.io",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Riccardo Dalla Via",
+                    "email": "riccardo.dallavia@maize.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Markable",
+            "homepage": "https://github.com/maize-tech/laravel-markable",
+            "keywords": [
+                "Favorites",
+                "bookmarks",
+                "laravel",
+                "likes",
+                "maize-tech",
+                "markable"
+            ],
+            "support": {
+                "issues": "https://github.com/maize-tech/laravel-markable/issues",
+                "source": "https://github.com/maize-tech/laravel-markable/tree/2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/maize-tech",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-27T10:15:46+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.8.0",
             "source": {
@@ -3365,6 +3444,66 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "9ab30fd24f677e5aa370ea4cf6b41c517d16cf85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/9ab30fd24f677e5aa370ea4cf6b41c517d16cf85",
+                "reference": "9ab30fd24f677e5aa370ea4cf6b41c517d16cf85",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0|^9.0",
+                "pestphp/pest": "^1.22|^2",
+                "phpunit/phpunit": "^9.5.24|^10.5",
+                "spatie/pest-plugin-test-time": "^1.1|^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.17.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-09T16:29:14+00:00"
         },
         {
             "name": "symfony/clock",

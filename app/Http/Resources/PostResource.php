@@ -24,6 +24,8 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'tags' => $this->tags,
             'image' => Storage::url($this->image),
+            'is_liked' => $this->isLiked(),
+            'is_bookmarked' => $this->isBookmarked(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

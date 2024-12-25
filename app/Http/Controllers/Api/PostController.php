@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Maize\Markable\Models\Like;
+use Maize\Markable\Models\Bookmark;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -33,7 +36,51 @@ class PostController extends Controller
         return PostResource::make($post);
     }
 
-    public function likeDislike(Post $post) {}
+    public function likeDislike(string $id)
+    {
+        $post = Post::where('id', $id)->first();
 
-    public function bookmarkUnbookmark(Post $post) {}
+        if (!$post) {
+            return response()->json([
+                'message' => 'پست یافت نشد.'
+            ], 404);
+        }
+
+        $user = auth()->user();
+
+        if (Like::has($post, $user)) {
+            Like::remove($post, $user);
+        } else {
+            Like::add($post, $user);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'لایک و یا دیسلایک انجام شد.'
+        ]);
+    }
+
+    public function bookmarkUnbookmark(string $id)
+    {
+        $post = Post::where('id', $id)->first();
+
+        if (!$post) {
+            return response()->json([
+                'message' => 'پست یافت نشد.'
+            ], 404);
+        }
+
+        $user = auth()->user();
+
+        if (Bookmark::has($post, $user)) {
+            Bookmark::remove($post, $user);
+        } else {
+            Bookmark::add($post, $user);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'بوکمارک و یا برداشتن بوکمارک انجام شد.'
+        ]);
+    }
 }
