@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\UploadService\UploadService;
 use App\Http\Requests\Admin\PostCreateRequest;
 use App\Http\Requests\Admin\PostUpdateRequest;
 
@@ -27,14 +28,18 @@ class PostController extends Controller
         return view('admin.post.create', compact('categories', 'users'));
     }
 
-    public function store(PostCreateRequest $request)
+    public function store(PostCreateRequest $request, UploadService $uploadService)
     {
         $inputs = $request->validated();
 
         if ($request->hasFile('image')) {
-            //TODO : image uploader service
+            $result = $uploadService->folder('posts')->upload($request->file('image'));
 
-            $inputs['image'] = '';
+            if (!$result) {
+                return to_route('admin.post.create')->with('warning', 'مکشلی در آپلود تصویر پیش آمده است');
+            }
+
+            $inputs['image'] = $result;
         }
 
         Post::create($inputs);
@@ -44,7 +49,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('admin.post.show');
+        return view('admin.post.show', compact('post'));
     }
 
     public function edit(Post $post)
@@ -54,18 +59,22 @@ class PostController extends Controller
         return view('admin.post.edit', compact('categories', 'users', 'post'));
     }
 
-    public function update(PostUpdateRequest $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post, UploadService $uploadService)
     {
         $inputs = $request->validated();
 
         if ($request->hasFile('image')) {
             if (!empty($post->image)) {
-                //TODO : delete image from server
+                $uploadService->delete($post->image);
             }
 
-            //TODO : image uploader service
+            $result = $uploadService->folder('posts')->upload($request->file('image'));
 
-            $inputs['image'] = '';
+            if (!$result) {
+                return to_route('admin.post.create')->with('warning', 'مکشلی در آپلود تصویر پیش آمده است');
+            }
+
+            $inputs['image'] = $result;
         }
 
         $post->update($inputs);
@@ -82,5 +91,17 @@ class PostController extends Controller
         ]);
     }
 
-    public function status(Post $post) {}
+    public function status(Request $request, Post $post)
+    {
+        $post->update([
+            'status' => $request->status,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'color' => $post->status_color,
+            'title' => $post->status_title,
+            'message' => 'تغییر وضعیت پست انجام شد.'
+        ]);
+    }
 }

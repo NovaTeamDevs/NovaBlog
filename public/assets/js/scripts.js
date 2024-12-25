@@ -84,3 +84,38 @@ document.querySelectorAll("form").forEach(function (form) {
         }
     });
 });
+function changeStatus(element){
+    let url = element.dataset.url;
+    let token = element.dataset.token;
+    let statusElement = document.querySelector('select#status');
+    let spinner = document.querySelector('div#status_spinner');
+    let status_form = document.querySelector('div#status_change');
+    let status_badge = document.querySelector('td#status_badge');
+
+    spinner.classList.remove('d-none');
+    status_form.classList.add('d-none');
+
+    $.ajax({
+        url: url,
+        method: "post",
+        data: {
+            _token: token,
+            status: statusElement.value
+        },
+        success: function (response) {
+            spinner.classList.add('d-none');
+            status_form.classList.remove('d-none');
+            if (response.success === true) {
+                status_badge.innerHTML = '';
+                status_badge.innerHTML = `<span class="badge bg-${response.color}  py-2 px-3">${response.title}</span>`;
+            } else {
+                JSAlert.alert( response.message,"خطا", JSAlert.Icons.Failed,"بستن");
+            }
+        },
+        error: function (error) {
+            spinner.classList.add('d-none');
+            status_form.classList.remove('d-none');
+            notifier.show("خطا","مشکلی پیش آمده. مجدد سعی کنید", "danger", "", 4000);
+        },
+    });
+}

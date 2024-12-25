@@ -1,3 +1,4 @@
+@use('App\Enum\PostStatusEnum')
 @extends('admin.layouts.master')
 @section('title', 'نمایش پست - نوا بلاگ')
 
@@ -16,34 +17,34 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="card-title">نمایش پست ؟؟؟</h4>
+                        <h4 class="card-title">نمایش پست {{ $post->title }}</h4>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-light">
                             <tbody>
                                 <tr>
                                     <th style="width: 15%">عنوان</th>
-                                    <td>عنوان پست</td>
+                                    <td>{{ $post->title }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">دسته بندی</th>
-                                    <td>مقالات علمی</td>
+                                    <td>{{ $post->category->name }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">نویسنده</th>
-                                    <td>سعید نوری</td>
+                                    <td>{{ $post->author->full_name }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">تاریخ ایجاد</th>
-                                    <td>همین امروز</td>
+                                    <td>{{ verta($post->created_at)->format('%d %B %Y - H:s:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">تاریخ ویرایش</th>
-                                    <td>همین امروز</td>
+                                    <td>{{ verta($post->updated_at)->format('%d %B %Y - H:s:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">برچست ها</th>
-                                    <td>مقاله، نوشته، تکنولوژی، تست</td>
+                                    <td>{{ $post->tags }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">تعداد لایک</th>
@@ -51,17 +52,46 @@
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">وضعیت</th>
-                                    <td><span class="badge bg-success py-2 px-3">منتشر شده</span></td>
+                                    <td id="status_badge">
+                                        <span
+                                            class="badge bg-{{ $post->status_color }} py-2 px-3">{{ $post->status_title }}</span>
+                                    </td>
+                                </tr>
+                                <tr class="align-middle">
+                                    <th style="width: 20%">تغییر وضعیت</th>
+                                    <td>
+                                        <div class="position-relative">
+                                            <div class="d-flex align-items-center w-25" id="status_change">
+                                                <select name="status" id="status" class="form-select me-3">
+                                                    @foreach (PostStatusEnum::cases() as $status)
+                                                        <option value="{{ $status->value }}" @selected(old('status') == $status->value)>
+                                                            {{ __('app.post_status.' . $status->value) }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <button class="btn btn-primary" type="button" onclick="changeStatus(this)"
+                                                    data-token="{{ csrf_token() }}"
+                                                    data-url="{{ route('admin.post.status', $post) }}">
+                                                    <i class="bi bi-arrow-clockwise"></i>
+                                                </button>
+                                            </div>
+                                            <div class="position-absolute d-none" style="top: 10%; right: 10%;"
+                                                id="status_spinner">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">تصویر</th>
                                     <td>
-                                        <img src="{{ asset('assets/images/post-1.jpg') }}" alt="post image" class="rounded w-25">
+                                        <img src="{{ Storage::url($post->image) }}" alt="post image" class="rounded w-25">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">محتوا</th>
-                                    <td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</td>
+                                    <td>{{ $post->content }}</td>
                                 </tr>
                             </tbody>
                         </table>
