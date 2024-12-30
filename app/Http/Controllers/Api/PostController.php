@@ -9,6 +9,9 @@ use Maize\Markable\Models\Bookmark;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Api\PostCreateRequest;
+use App\Http\Requests\Api\PostUpdateRequest;
+use App\Services\UploadService\UploadService;
 
 class PostController extends Controller
 {
@@ -81,6 +84,94 @@ class PostController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'بوکمارک و یا برداشتن بوکمارک انجام شد.'
+        ]);
+    }
+
+    public function store(PostCreateRequest $request, UploadService $uploadService)
+    {
+        $inputs = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $result = $uploadService->folder('posts')->upload($request->file('image'));
+
+            if (!$result) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'مکشلی در آپلود تصویر پیش آمده است'
+                ], 400);
+            }
+
+            $inputs['image'] = $result;
+        }
+
+        $post = Post::create($inputs);
+
+        return response()->json([
+            'success' => true,
+            'message' =>  'پست جدید با موفقیت ایجاد شد',
+            'data' => PostResource::make($post)
+        ]);
+    }
+
+    public function update(PostUpdateRequest $request, string $id, UploadService $uploadService)
+    {
+        $post = Post::where('id', $id)->first();
+
+        if (!$post) {
+            return response()->json([
+                'success' => false,
+                'message' => 'پستی با این آیدی یافت نشد'
+            ], 404);
+        }
+
+        $inputs = $request->validated();
+
+        if ($request->hasFile('image')) {
+            if (!empty($post->image)) {
+                $uploadService->delete($post->image);
+            }
+
+            $result = $uploadService->folder('posts')->upload($request->file('image'));
+
+            if (!$result) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'مکشلی در آپلود تصویر پیش آمده است'
+                ], 400);
+            }
+
+            $inputs['image'] = $result;
+        }
+
+        $post->update($inputs);
+
+        return response()->json([
+            'success' => true,
+            'message' =>  'پست با موفقیت ویرایش شد',
+            'data' => PostResource::make($post)
+        ]);
+    }
+
+    public function destroy(string $id, UploadService $uploadService)
+    {
+        $post = Post::where('id', $id)->first();
+
+        if (!$post) {
+            return response()->json([
+                'success' => false,
+                'message' => 'پستی با این آیدی یافت نشد'
+            ], 404);
+        }
+
+        if (!empty($post->image)) {
+            $uploadService->delete($post->image);
+        }
+
+        $post->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' =>  'پست با موفقیت حذف شد',
         ]);
     }
 }

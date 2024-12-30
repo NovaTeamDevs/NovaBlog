@@ -225,5 +225,8 @@ return [
         "iban"                  => "شماره شبا",
         "accountـnumber"        => "شماره حساب",
         'parent_id'             => 'دسته بندی والد',
+        'category_id'             => 'دسته بندی',
+        'user_id'             => 'کد کاربر',
+        'status'             => 'وضعیت',
     ],
 ];

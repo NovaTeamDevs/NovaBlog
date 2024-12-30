@@ -22,7 +22,7 @@ class UploadService
 
     public function delete(string $file_name): bool
     {
-        return File::delete($file_name);
+        return Storage::drive('public')->delete($file_name);
     }
 
     private function generateName(): string
