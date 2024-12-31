@@ -21,7 +21,7 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                     class="img-size-50 rounded-circle me-3">
+                                    class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
@@ -41,7 +41,7 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                     class="img-size-50 rounded-circle me-3">
+                                    class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
@@ -61,7 +61,7 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                     class="img-size-50 rounded-circle me-3">
+                                    class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
@@ -81,7 +81,7 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                     class="img-size-50 rounded-circle me-3">
+                                    class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
@@ -101,7 +101,7 @@
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <img src="../../dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                                     class="img-size-50 rounded-circle me-3">
+                                    class="img-size-50 rounded-circle me-3">
                             </div>
                             <div class="flex-grow-1">
                                 <h3 class="dropdown-item-title">
@@ -129,13 +129,13 @@
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <img src="../../dist/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow"
-                         alt="User Image">
+                        alt="User Image">
                     <span class="d-none d-md-inline">مدیر ارشد</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <li class="user-header text-bg-primary">
                         <img src="../../dist/assets/img/user2-160x160.jpg" class="rounded-circle shadow"
-                             alt="User Image">
+                            alt="User Image">
                         <p>
                             سعید نوری - مدیر ارشد
                             <small>عضویت از سال 1403</small>
@@ -143,7 +143,7 @@
                     </li>
                     <li class="user-footer">
                         <a href="#" class="btn btn-default btn-flat">پروفایل</a>
-                        <a href="#" class="btn btn-default btn-flat float-end">خروج</a>
+                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-end">خروج</a>
                     </li>
                 </ul>
             </li>
