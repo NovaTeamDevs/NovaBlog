@@ -11,9 +11,9 @@ use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
     Route::prefix('category')->name('category.')->group(function () {

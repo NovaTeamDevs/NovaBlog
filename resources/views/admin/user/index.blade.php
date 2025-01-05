@@ -29,102 +29,66 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%">#</th>
-                                            <th style="width: 5%">آواتار</th>
-                                            <th>نام کامل</th>
-                                            <th>ایمیل</th>
-                                            <th>تاریخ تائید ایمیل</th>
-                                            <th>مدیر است؟</th>
-                                            <th style="width: 20%">عملیات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>
-                                                <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="avatar image"
-                                                    class="w-100 rounded-circle">
-                                            </td>
-                                            <td>کاربر شماره 1</td>
-                                            <td>user1@email.com</td>
-                                            <td><span class="badge bg-success">تایید شده</span></td>
-                                            <td><i class="bi bi-check text-success fs-1"></i></td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>2.</td>
-                                            <td>
-                                                <img src="{{ asset('assets/images/avatar-2.jpg') }}" alt="avatar image"
-                                                    class="w-100 rounded-circle">
-                                            </td>
-                                            <td>کاربر شماره 2</td>
-                                            <td>user2@email.com</td>
-                                            <td><span class="badge bg-warning">در انتظار</span></td>
-                                            <td><i class="bi bi-x text-danger fs-1"></i></td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>3.</td>
-                                            <td>
-                                                <img src="{{ asset('assets/images/avatar-3.jpg') }}" alt="avatar image"
-                                                    class="w-100 rounded-circle">
-                                            </td>
-                                            <td>کاربر شماره 3</td>
-                                            <td>user3@email.com</td>
-                                            <td><span class="badge bg-success">تایید شده</span></td>
-                                            <td><i class="bi bi-x text-danger fs-1"></i></td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <a href="#" class="btn btn-warning" data-bs-title="ویرایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-pencil-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                @if ($users->count() > 0)
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%">#</th>
+                                                <th style="width: 5%">آواتار</th>
+                                                <th>نام کامل</th>
+                                                <th>ایمیل</th>
+                                                <th>تاریخ تائید ایمیل</th>
+                                                <th>مدیر است؟</th>
+                                                <th style="width: 20%">عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)
+                                                <tr class="align-middle">
+                                                    <td>{{ $user->id }}</td>
+                                                    <td>
+                                                        <img src="{{ $user->avatar }}" alt="avatar image"
+                                                            class="w-100 rounded-circle">
+                                                    </td>
+                                                    <td>{{ $user->full_name }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>
+                                                        @if ($user->hasVerifiedEmail())
+                                                            <span class="badge bg-success">تایید شده</span>
+                                                        @else
+                                                            <span class="badge bg-danger">تایید نشده</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($user->is_admin)
+                                                            <i class="bi bi-check text-success fs-1"></i>
+                                                        @else
+                                                            <i class="bi bi-times text-danger fs-1"></i>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('admin.user.edit', $user) }}"
+                                                            class="btn btn-warning" data-bs-title="ویرایش"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                                class="bi bi-pencil-fill text-white"></i></a>
+                                                        <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            onclick="deleteItem(this)"
+                                                            data-url="{{ route('admin.user.destroy', $user) }}"
+                                                            data-title="{{ $user->full_name }}"
+                                                            data-token="{{ csrf_token() }}"><i
+                                                                class="bi bi-trash text-white"></i></button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>موردی یافت نشد!</p>
+                                @endif
                             </div>
                             <div class="card-footer">
-                                <ul class="pagination float-end">
-                                    <li class="page-item"> <a class="page-link" href="#">&laquo;</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">&raquo;</a> </li>
-                                </ul>
+                                {{ $users->links() }}
                             </div>
                         </div>
                     </div>

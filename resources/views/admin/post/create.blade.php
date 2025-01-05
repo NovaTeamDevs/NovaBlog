@@ -71,7 +71,7 @@
                                         <select name="user_id" id="user_id" class="form-select" data-choices
                                             data-selecttext="کلیک برای انتخاب">
                                             @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
+                                                <option value="{{ $user->id }}" @selected(old('user_id', auth()->id()) == $user->id)>
                                                     {{ $user->full_name }}</option>
                                             @endforeach
                                         </select>

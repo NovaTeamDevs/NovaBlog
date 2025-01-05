@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustHosts(at: ['*']);
+        $middleware->alias([
+            'admin.check' => App\Http\Middleware\AdminCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
