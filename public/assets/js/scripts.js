@@ -84,7 +84,7 @@ document.querySelectorAll("form").forEach(function (form) {
         }
     });
 });
-function changeStatus(element){
+function changeStatus(element) {
     let url = element.dataset.url;
     let token = element.dataset.token;
     let statusElement = document.querySelector('select#status');
@@ -109,13 +109,33 @@ function changeStatus(element){
                 status_badge.innerHTML = '';
                 status_badge.innerHTML = `<span class="badge bg-${response.color}  py-2 px-3">${response.title}</span>`;
             } else {
-                JSAlert.alert( response.message,"خطا", JSAlert.Icons.Failed,"بستن");
+                JSAlert.alert(response.message, "خطا", JSAlert.Icons.Failed, "بستن");
             }
         },
         error: function (error) {
             spinner.classList.add('d-none');
             status_form.classList.remove('d-none');
-            notifier.show("خطا","مشکلی پیش آمده. مجدد سعی کنید", "danger", "", 4000);
+            notifier.show("خطا", "مشکلی پیش آمده. مجدد سعی کنید", "danger", "", 4000);
         },
     });
 }
+document.querySelector('.btn-gen-passw').addEventListener('click', function (event) {
+    let upper = true,
+        nums = true,
+        special = true,
+        len = 10;
+    const lower = "abcdefghijklmnopqrstuvwxyz",
+        upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        numChars = "0123456789",
+        specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+    let chars = lower;
+    if (upper) chars += upperChars;
+    if (nums) chars += numChars;
+    if (special) chars += specialChars;
+    let pass = "";
+    for (let i = 0; i < len; i++) {
+        const randIdx = Math.floor(Math.random() * chars.length);
+        pass += chars[randIdx];
+    }
+    document.querySelector('#password').value = pass;
+});
