@@ -11,11 +11,11 @@ class Category extends Model
     use SoftDeletes, HasFactory;
 
     protected $fillable
-        = [
-            'name',
-            'description',
-            'parent_id',
-        ];
+    = [
+        'name',
+        'description',
+        'parent_id',
+    ];
 
     public function parent()
     {
@@ -29,13 +29,13 @@ class Category extends Model
 
     public function posts()
     {
-        // TODO : relation with post model
+        return $this->hasMany(Post::class);
     }
 
     //Extra methods
-//    public function parentName(){
-//        return is_null($this->parent_id) ? 'دسته بندی اصلی' : $this->parent->name;
-//    }
+    //    public function parentName(){
+    //        return is_null($this->parent_id) ? 'دسته بندی اصلی' : $this->parent->name;
+    //    }
 
     public function getParentNameAttribute()
     {

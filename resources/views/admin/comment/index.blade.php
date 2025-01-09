@@ -24,86 +24,52 @@
                                 <span class="text-muted">برای تغییر وضعیت نظر وارد نظر شوید.</span>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%">#</th>
-                                            <th>پست</th>
-                                            <th>نویسنده</th>
-                                            <th>نوع</th>
-                                            <th style="width: 10%">وضعیت</th>
-                                            <th style="width: 20%">عملیات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="align-middle">
-                                            <td>1.</td>
-                                            <td>پست شماره 1</td>
-                                            <td>کاربر شماره 1</td>
-                                            <td>نظر اصلی</td>
-                                            <td>
-                                                <span class="badge bg-success">تائید شده</span>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>2.</td>
-                                            <td>پست شماره 2</td>
-                                            <td>user@email.com</td>
-                                            <td>پاسخ به نظر شماره 1</td>
-                                            <td>
-                                                <span class="badge bg-warning">در انتظار</span>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <td>3.</td>
-                                            <td>پست شماره 3</td>
-                                            <td>کاربر شماره 5</td>
-                                            <td>نظر اصلی</td>
-                                            <td>
-                                                <span class="badge bg-danger">رد شده</span>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary" data-bs-title="نمایش"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"><i
-                                                        class="bi bi-eye-fill text-white"></i></a>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                @if ($comments->isNotEmpty())
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%">#</th>
+                                                <th>پست</th>
+                                                <th>نویسنده</th>
+                                                <th>نوع</th>
+                                                <th style="width: 10%">وضعیت</th>
+                                                <th style="width: 20%">عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($comments as $comment)
+                                                <tr class="align-middle">
+                                                    <td>{{ $comment->id }}</td>
+                                                    <td>{{ $comment->post->title }}</td>
+                                                    <td>{{ $comment->comment_user_name }}</td>
+                                                    <td>{{ $comment->getParentName() }}</td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-{{ $comment->status_color }}">{{ $comment->status_title }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('admin.comment.show', $comment) }}"
+                                                            class="btn btn-primary" data-bs-title="نمایش"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"><i
+                                                                class="bi bi-eye-fill text-white"></i></a>
+                                                        <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            onclick="deleteItem(this)"
+                                                            data-url="{{ route('admin.comment.destroy', $comment) }}"
+                                                            data-title="نظر شماره {{ $comment->id }}"
+                                                            data-token="{{ csrf_token() }}"><i
+                                                                class="bi bi-trash text-white"></i></button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>موردی یافت نشد!</p>
+                                @endif
                             </div>
                             <div class="card-footer">
-                                <ul class="pagination float-end">
-                                    <li class="page-item"> <a class="page-link" href="#">&laquo;</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">&raquo;</a> </li>
-                                </ul>
+                                {{ $comments->links() }}
                             </div>
                         </div>
                     </div>

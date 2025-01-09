@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
     public function index()
     {
-        return view('admin.comment.index');
+        $comments = Comment::paginate();
+        return view('admin.comment.index', compact('comments'));
     }
 
     public function show(string $id)
@@ -17,18 +19,9 @@ class CommentController extends Controller
         return view('admin.comment.show');
     }
 
-    public function answer(Request $request, string $id)
-    {
+    public function answer(Request $request, string $id) {}
 
-    }
+    public function destroy(string $id) {}
 
-    public function destroy(string $id)
-    {
-
-    }
-
-    public function status(int $status)
-    {
-
-    }
+    public function status(int $status) {}
 }

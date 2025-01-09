@@ -84,10 +84,15 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        foreach ($post->comments as $comment) {
+            $comment->delete();
+        }
+
         $post->delete();
+
         return response()->json([
             'success' => true,
-            'message' => 'حذف پست مورد نظر انجام شد.'
+            'message' => 'حذف پست مورد نظر  همراه با نظرات آن انجام شد.'
         ]);
     }
 
