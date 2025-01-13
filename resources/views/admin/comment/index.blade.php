@@ -48,7 +48,7 @@
                                                             class="badge bg-{{ $comment->status_color }}">{{ $comment->status_title }}</span>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.comment.show', $comment) }}"
+                                                        <a href="{{ route('admin.comment.show', $comment->parent_id ?? $comment->id) }}"
                                                             class="btn btn-primary" data-bs-title="نمایش"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"><i
                                                                 class="bi bi-eye-fill text-white"></i></a>

@@ -119,23 +119,25 @@ function changeStatus(element) {
         },
     });
 }
-document.querySelector('.btn-gen-passw').addEventListener('click', function (event) {
-    let upper = true,
-        nums = true,
-        special = true,
-        len = 10;
-    const lower = "abcdefghijklmnopqrstuvwxyz",
-        upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        numChars = "0123456789",
-        specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
-    let chars = lower;
-    if (upper) chars += upperChars;
-    if (nums) chars += numChars;
-    if (special) chars += specialChars;
-    let pass = "";
-    for (let i = 0; i < len; i++) {
-        const randIdx = Math.floor(Math.random() * chars.length);
-        pass += chars[randIdx];
-    }
-    document.querySelector('#password').value = pass;
+document.querySelectorAll('.btn-gen-passw').forEach((element) => {
+    element.addEventListener('click', function (event) {
+        let upper = true,
+            nums = true,
+            special = true,
+            len = 10;
+        const lower = "abcdefghijklmnopqrstuvwxyz",
+            upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            numChars = "0123456789",
+            specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+        let chars = lower;
+        if (upper) chars += upperChars;
+        if (nums) chars += numChars;
+        if (special) chars += specialChars;
+        let pass = "";
+        for (let i = 0; i < len; i++) {
+            const randIdx = Math.floor(Math.random() * chars.length);
+            pass += chars[randIdx];
+        }
+        document.querySelector('#password').value = pass;
+    });
 });

@@ -1,3 +1,4 @@
+@use('App\Enum\CommentStatusEnum')
 @extends('admin.layouts.master')
 @section('title', 'مشاهده نظر - نوا بلاگ')
 
@@ -23,19 +24,19 @@
                                     <tbody>
                                         <tr class="align-middle">
                                             <th style="width: 20%">شماره نظر</th>
-                                            <td>32</td>
+                                            <td>{{ $comment->id }}</td>
                                         </tr>
                                         <tr class="align-middle">
                                             <th style="width: 20%">پست</th>
-                                            <td>پست شماره 2</td>
+                                            <td>{{ $comment->post->title }}</td>
                                         </tr>
                                         <tr class="align-middle">
                                             <th style="width: 20%">نویسنده</th>
-                                            <td>کاربر شماره 1</td>
+                                            <td>{{ $comment->comment_user_name }}</td>
                                         </tr>
                                         <tr class="align-middle">
                                             <th style="width: 20%">ایمیل</th>
-                                            <td>user@email.com</td>
+                                            <td>{{ $comment->comment_user_email }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -44,32 +45,41 @@
                                 <table class="table table-bordered table-light">
                                     <tbody>
                                         <tr class="align-middle">
-                                            <th style="width: 20%">وضعیت</th>
-                                            <td>
-                                                <span class="badge bg-warning">در انتظار</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
                                             <th style="width: 20%">تاریخ ارسال</th>
-                                            <td>همین امروز</td>
+                                            <td>{{ verta($comment->created_at)->format('%d %B %Y - H:s:i') }}</td>
                                         </tr>
                                         <tr class="align-middle">
                                             <th style="width: 20%">تاریخ آخرین پاسخ</th>
-                                            <td>همین امروز</td>
+                                            <td>{{ verta($comment->last_answer_date)->format('%d %B %Y - H:s:i') }}
+                                            </td>
+                                        </tr>
+                                        <tr class="align-middle">
+                                            <th style="width: 20%">وضعیت</th>
+                                            <td id="status_badge">
+                                                <span
+                                                    class="badge bg-{{ $comment->status_color }}">{{ $comment->status_title }}</span>
+                                            </td>
                                         </tr>
                                         <tr class="align-middle">
                                             <th style="width: 20%">تغییر وضعیت</th>
                                             <td>
                                                 <div class="position-relative">
-                                                    <div class="d-flex align-items-center" id="status_change">
+                                                    <div class="d-flex align-items-center w-25" id="status_change">
                                                         <select name="status" id="status" class="form-select me-3">
-                                                            <option value="0">در انتظار</option>
-                                                            <option value="1">تائید شده</option>
-                                                            <option value="2">رد شده</option>
+                                                            @foreach (CommentStatusEnum::cases() as $status)
+                                                                <option value="{{ $status->value }}"
+                                                                    @selected(old('status', $comment->status->value) == $status->value)>
+                                                                    {{ __('app.comment_status.' . $status->name) }}</option>
+                                                            @endforeach
                                                         </select>
-                                                        <button class="btn btn-primary" type="button"><i class="bi bi-arrow-clockwise"></i></button>
+                                                        <button class="btn btn-primary" type="button"
+                                                            onclick="changeStatus(this)" data-token="{{ csrf_token() }}"
+                                                            data-url="{{ route('admin.comment.status', $comment) }}">
+                                                            <i class="bi bi-arrow-clockwise"></i>
+                                                        </button>
                                                     </div>
-                                                    <div class="position-absolute" style="top: 10%; right: 50%;" id="status_spinner">
+                                                    <div class="position-absolute d-none" style="top: 10%; right: 10%;"
+                                                        id="status_spinner">
                                                         <div class="spinner-border text-primary" role="status">
                                                             <span class="visually-hidden">Loading...</span>
                                                         </div>
@@ -83,32 +93,30 @@
                             <div class="col-12">
                                 <div class="border rounded p-4">
                                     <h5 class="fw-bold">متن نظر :</h5>
-                                    <p class="m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    <p class="m-0">{{ $comment->comment }}</p>
 
-                                    <div class="border rounded  mt-5 p-3">
-                                        <h5 class="fw-bold">پاسخ ها :</h5>
-                                        <div class="border rounded p-2 mb-1">
-                                            <span class="text-muted">پاسخ شماره : 2 - تاریخ پاسخ : همین امروز - توسط : ادمین سایت</span>
-                                            <hr>
-                                            <p class="m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    @if ($comment->answer->isNotEmpty())
+                                        <div class="border rounded  mt-5 p-3">
+                                            <h5 class="fw-bold">پاسخ ها :</h5>
+                                            @foreach ($comment->answer as $answer)
+                                                <div class="border rounded p-2 mb-1">
+                                                    <span class="text-muted">
+                                                        پاسخ شماره : {{ $answer->id }} - تاریخ پاسخ :
+                                                        {{ verta($answer->created_at)->format('%d %B %Y - H:s:i') }} - توسط
+                                                        :
+                                                        {{ $answer->comment_user_name }}</span>
+                                                    <hr>
+                                                    <p class="m-0">{{ $answer->comment }}</p>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <div class="border rounded p-2 mb-1">
-                                            <span class="text-muted">پاسخ شماره : 2 - تاریخ پاسخ : همین امروز - توسط : ادمین سایت</span>
-                                            <hr>
-                                            <p class="m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-                                        </div>
-                                        <div class="border rounded p-2 mb-1">
-                                            <span class="text-muted">پاسخ شماره : 2 - تاریخ پاسخ : همین امروز - توسط : ادمین سایت</span>
-                                            <hr>
-                                            <p class="m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <form action="#" method="post">
+                <form action="{{ route('admin.comment.answer', $comment) }}" method="post">
                     @csrf
                     <div class="card mb-4">
                         <div class="card-header">
@@ -116,13 +124,19 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <textarea name="content" id="content" cols="5" rows="10" class="form-control"></textarea>
-                                <div class="text-danger"><p>محتوای خطا</p></div>
+                                <textarea name="content" id="content" cols="5" rows="10" class="form-control">{{ old('content') }}</textarea>
+                                @error('content')
+                                    <div class="text-danger">
+                                        <p>{{ $message }}</p>
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('admin.comment.index') }}" class="btn btn-outline-secondary"><i class="bi bi-chevron-left me-2"></i>بازگشت</a>
-                            <button type="submit" class="btn btn-success"><i class="bi bi-save me-2"></i>ذخیره پاسخ</button>
+                            <a href="{{ route('admin.comment.index') }}" class="btn btn-outline-secondary"><i
+                                    class="bi bi-chevron-left me-2"></i>بازگشت</a>
+                            <button type="submit" class="btn btn-success"><i class="bi bi-save me-2"></i>ذخیره
+                                پاسخ</button>
                         </div>
                     </div>
                 </form>

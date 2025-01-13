@@ -42,7 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->gro
         Route::get('/show/{comment}', [CommentController::class, 'show'])->name('show');
         Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('answer');
         Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('destroy');
-        Route::post('/status/{status}', [CommentController::class, 'status'])->name('status');
+        Route::post('/status/{comment}', [CommentController::class, 'status'])->name('status');
     });
 
     Route::prefix('user')->name('user.')->group(function () {

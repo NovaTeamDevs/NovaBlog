@@ -84,4 +84,11 @@ class Comment extends Model
             CommentStatusEnum::Rejected => 'danger',
         };
     }
+
+    public function getLastAnswerDateAttribute()
+    {
+        return $this->answer()
+            ->orderByDesc('created_at')
+            ->first()->created_at ?? '';
+    }
 }
