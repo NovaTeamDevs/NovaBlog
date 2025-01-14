@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->gro
         Route::get('/create', [TokenController::class, 'create'])->name('create');
         Route::post('/store', [TokenController::class, 'store'])->name('store');
         Route::delete('/destroy/{token}', [TokenController::class, 'destroy'])->name('destroy');
+        Route::get('/show/{token}', [TokenController::class, 'show'])->name('show');
     });
 });
 

@@ -29,41 +29,56 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 40%">توکن</th>
-                                            <th>کاربر</th>
-                                            <th>دسترسی</th>
-                                            <th>توضیحات</th>
-                                            <th style="width: 10%">عملیات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="align-middle">
-                                            <td><code>shgjk34hkndfvkn2398yxcvy9df</code></td>
-                                            <td>کاربر شماره 1</td>
-                                            <td>خواندن - نوشتن</td>
-                                            <td>توضیحات ندارد</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger" data-bs-title="حذف"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    onclick="deleteItem(this)" data-url="#" data-title=""
-                                                    data-token="{{ csrf_token() }}"><i
-                                                        class="bi bi-trash text-white"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                @if ($tokens->count() > 0)
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>کاربر</th>
+                                                <th>نام توکن</th>
+                                                <th>تاریخ ایجاد</th>
+                                                <th>تاریخ آخرین استفاده</th>
+                                                <th>تاریخ انقضاء</th>
+                                                <th>دسترسی</th>
+                                                <th style="width: 10%">عملیات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($tokens as $token)
+                                                <tr class="align-middle">
+                                                    <td>{{ $token->tokenable->full_name }}</td>
+                                                    <td>{{ $token->name }}</td>
+                                                    <td>{{ is_null($token->created_at) ? '' : verta($token->created_at)->format('%d %B %Y - H:s:i') }}
+                                                    </td>
+                                                    <td>{{ is_null($token->expires_at) ? '' : verta($token->expires_at)->format('%d %B %Y - H:s:i') }}
+                                                    </td>
+                                                    <td>{{ is_null($token->last_used_at) ? '' : verta($token->last_used_at)->format('%d %B %Y - H:s:i') }}
+                                                    </td>
+                                                    <td>
+                                                        <ul>
+                                                            @foreach ($token->abilities as $ability)
+                                                                <li>{{ $ability }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger" data-bs-title="حذف"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            onclick="deleteItem(this)"
+                                                            data-url="{{ route('admin.token.destroy', $token) }}"
+                                                            data-title="توکن کاربر {{ $token->tokenable->full_name }}"
+                                                            data-token="{{ csrf_token() }}"><i
+                                                                class="bi bi-trash text-white"></i></button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>موردی یافت نشد!</p>
+                                @endif
                             </div>
                             <div class="card-footer">
-                                <ul class="pagination float-end">
-                                    <li class="page-item"> <a class="page-link" href="#">&laquo;</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">1</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">2</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">3</a> </li>
-                                    <li class="page-item"> <a class="page-link" href="#">&raquo;</a> </li>
-                                </ul>
+                                {{ $tokens->links() }}
                             </div>
                         </div>
                     </div>
