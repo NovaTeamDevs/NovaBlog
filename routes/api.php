@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CategoryController;
 
 Route::middleware([])->group(function () {
@@ -13,6 +14,9 @@ Route::middleware([])->group(function () {
     Route::post('/post/like-dislike/{post}', [PostController::class, 'likeDislike']);
     Route::post('/post/bookmark-unbookmark/{post}', [PostController::class, 'bookmarkUnbookmark']);
 
+    Route::get('/comments/{post_id}', [CommentController::class, 'index']);
+    Route::post('/comments/store/{post_id}', [CommentController::class, 'store']);
+
     //Special access
     Route::middleware([])->group(function () {
         Route::post('/category/store', [CategoryController::class, 'store']);
@@ -22,5 +26,9 @@ Route::middleware([])->group(function () {
         Route::post('/post/store', [PostController::class, 'store']);
         Route::post('/post/update/{id}', [PostController::class, 'update']);
         Route::delete('/post/destroy/{id}', [PostController::class, 'destroy']);
+
+        Route::get('/comments/all-comments', [CommentController::class, 'allComments']);
+        Route::post('/comments/change-status/{comment_id}', [CommentController::class, 'changeStatus']);
+        Route::delete('/comments/destroy/{comment_id}', [CommentController::class, 'destroy']);
     });
 });
