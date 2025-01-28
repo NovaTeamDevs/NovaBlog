@@ -14,7 +14,7 @@ Route::middleware([])->group(function () {
     Route::post('/post/like-dislike/{post}', [PostController::class, 'likeDislike']);
     Route::post('/post/bookmark-unbookmark/{post}', [PostController::class, 'bookmarkUnbookmark']);
 
-    Route::get('/comments/{post_id}', [CommentController::class, 'index']);
+    Route::get('/comments/get/{post_id}', [CommentController::class, 'index']);
     Route::post('/comments/store/{post_id}', [CommentController::class, 'store']);
 
     //Special access
