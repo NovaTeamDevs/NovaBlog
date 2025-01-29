@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\CategoryController;
 
@@ -12,7 +13,7 @@ Route::prefix('auth')->middleware(['api', 'guest'])->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
-Route::middleware([])->group(function () {
+Route::middleware(['auth:sanctum', 'ability:read'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'getData']);
 
@@ -24,8 +25,13 @@ Route::middleware([])->group(function () {
     Route::get('/comments/get/{post_id}', [CommentController::class, 'index']);
     Route::post('/comments/store/{post_id}', [CommentController::class, 'store']);
 
+    Route::get('/user/profile', [UserController::class, 'getUserData']);
+    Route::post('/user/update-profile', [UserController::class, 'updateProfile']);
+    Route::post('/user/update-avatar', [UserController::class, 'updateAvatar']);
+    Route::post('/user/update-password', [UserController::class, 'updatePassword']);
+
     //Special access
-    Route::middleware([])->group(function () {
+    Route::middleware(['abilities:read,write'])->group(function () {
         Route::post('/category/store', [CategoryController::class, 'store']);
         Route::post('/category/update/{id}', [CategoryController::class, 'update']);
         Route::delete('/category/destroy/{id}', [CategoryController::class, 'destroy']);
