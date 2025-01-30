@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserCreateRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,11 +14,10 @@ class UserCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:200',
-            'last_name' => 'required|string|max:200',
-            'email' => 'required|email|max:200|unique:users,email',
+            'first_name' => 'nullable|string|max:200',
+            'last_name' => 'nullable|string|max:200',
             'is_admin' => 'nullable',
-            'password' => 'required|string',
+            'password' => 'nullable|string',
             'avatar' => 'nullable|image|mimes:png,jpg,jpeg',
         ];
     }

@@ -43,5 +43,10 @@ Route::middleware(['auth:sanctum', 'ability:read'])->group(function () {
         Route::get('/comments/all-comments', [CommentController::class, 'allComments']);
         Route::post('/comments/change-status/{comment_id}', [CommentController::class, 'changeStatus']);
         Route::delete('/comments/destroy/{comment_id}', [CommentController::class, 'destroy']);
+
+        Route::get('/user/get-all', [UserController::class, 'getUsers']);
+        Route::post('/user/store', [UserController::class, 'store']);
+        Route::post('/user/update/{user_id}', [UserController::class, 'update']);
+        Route::delete('/user/destroy/{user_id}', [UserController::class, 'destroy']);
     });
 });
