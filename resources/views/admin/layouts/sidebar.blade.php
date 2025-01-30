@@ -103,13 +103,6 @@
                         <p>کاربران</p>
                     </a>
                 </li>
-                <li class="nav-header">تنظیمات</li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.token.index') }}" class="nav-link">
-                        <i class="bi bi-key-fill"></i>
-                        <p>توکن ها</p>
-                    </a>
-                </li>
             </ul>
         </nav>
     </div>
