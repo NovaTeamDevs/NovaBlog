@@ -47,7 +47,7 @@
                                                 <tr class="align-middle">
                                                     <td>{{ $user->id }}</td>
                                                     <td>
-                                                        <img src="{{ $user->avatar }}" alt="avatar image"
+                                                        <img src="{{ $user->user_avatar }}" alt="avatar image"
                                                             class="w-100 rounded-circle">
                                                     </td>
                                                     <td>{{ $user->full_name }}</td>

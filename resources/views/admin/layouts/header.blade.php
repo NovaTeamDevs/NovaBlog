@@ -128,22 +128,21 @@
             </li>
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="../../dist/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow"
+                    <img src="{{ auth()->user()->user_avatar }}" class="user-image rounded-circle shadow"
                         alt="User Image">
                     <span class="d-none d-md-inline">مدیر ارشد</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <li class="user-header text-bg-primary">
-                        <img src="../../dist/assets/img/user2-160x160.jpg" class="rounded-circle shadow"
-                            alt="User Image">
+                        <img src="{{ auth()->user()->user_avatar }}" class="rounded-circle shadow" alt="User Image">
                         <p>
-                            سعید نوری - مدیر ارشد
-                            <small>عضویت از سال 1403</small>
+                            {{ auth()->user()->full_name }}
                         </p>
                     </li>
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat">پروفایل</a>
-                        <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-end">خروج</a>
+                        <form action="{{ route('logout') }}" method="post">
+                            <button type="submit" class="btn btn-default btn-flat float-end">خروج</button>
+                        </form>
                     </li>
                 </ul>
             </li>

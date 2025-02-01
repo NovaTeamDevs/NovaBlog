@@ -17,7 +17,7 @@ class AuthorResource extends JsonResource
         return [
             'id' => $this->id,
             'full_name' => $this->full_name,
-            'avatar' => $this->avatar,
+            'avatar' => $this->user_avatar,
         ];
     }
 }
