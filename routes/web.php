@@ -66,3 +66,29 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::prefix('install')->name('install.')->group(function () {
+    Route::get('/', function () {
+        return view('install.index');
+    })->name('index');
+
+    Route::get('/migrate', function () {
+        $exit_code = Artisan::call('migrate', ['--force' => true]);
+
+        if ($exit_code == 0) {
+            return response('Migrate done.');
+        }
+
+        return $exit_code;
+    })->name('migrate');
+
+    Route::get('/storage', function () {
+        $exit_code = Artisan::call('storage:link', ['--force' => true]);
+
+        if ($exit_code == 0) {
+            return response('Storage link done.');
+        }
+
+        return $exit_code;
+    })->name('storage');
+});
