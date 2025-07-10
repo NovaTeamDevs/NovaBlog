@@ -1,6 +1,6 @@
 # 🌟 NovaBlog
 
-[🇮🇷 مطالعه به فارسی](README-fa.md)
+[🇮🇷 مطالعه به فارسی](./README-fa.md)
 
 NovaBlog is a simple and clean blogging platform built with the Laravel framework.
 
@@ -19,7 +19,7 @@ NovaBlog is a simple and clean blogging platform built with the Laravel framewor
 ## 🔧 Installation
 
 For detailed installation steps, please refer to the installation guide below:  
-➡️ [Installation Guide (English)](installation-en.md)
+➡️ [Installation Guide (English)](./INSTALLATION-en.md)
 
 ---
 
