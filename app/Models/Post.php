@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enum\PostStatusEnum;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Str;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Like;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +14,7 @@ use Maize\Markable\Models\Bookmark;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes, Markable;
+    use HasFactory, SoftDeletes, Markable, Sluggable;
 
     protected $fillable = [
         'title',
@@ -83,5 +85,14 @@ class Post extends Model
             return false;
 
         return Bookmark::has($this, auth()->user());
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }

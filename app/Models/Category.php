@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, Sluggable;
 
-    protected $fillable
-    = [
+    protected $fillable = [
         'name',
         'description',
         'parent_id',
@@ -40,5 +40,14 @@ class Category extends Model
     public function getParentNameAttribute()
     {
         return is_null($this->parent_id) ? 'دسته بندی اصلی' : $this->parent->name;
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 }
