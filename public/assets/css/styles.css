@@ -1,0 +1,48 @@
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: #f9f9fb;
+    color: #333;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card {
+    border: none;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #2a7ade;
+    border-color: #2a7ade;
+}
+
+.btn-primary:hover {
+    background-color: #1e5ec4;
+}
+
+.card-title {
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+footer {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: underline;
+}
