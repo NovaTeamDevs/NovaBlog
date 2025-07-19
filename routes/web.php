@@ -11,6 +11,30 @@ Route::get('/', function () {
     return view('front.index');
 })->name('home');
 
+Route::get('/archive', function () {
+    return view('front.archive');
+})->name('archive');
+
+Route::get('/category/{slug?}', function () {
+    return view('front.category');
+})->name('category');
+
+Route::get('/search', function () {
+    return view('front.search');
+})->name('search');
+
+Route::get('/author/{username}', function () {
+    return view('front.author');
+})->name('author');
+
+Route::get('/contact-us', function () {
+    return view('front.contact');
+})->name('contact');
+
+Route::get('/post/{slug}', function () {
+    return view('front.post-detail');
+})->name('post');
+
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
