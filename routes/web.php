@@ -1,80 +1,74 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CommentController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
-Route::get('/', function () {
-    return view('front.index');
-})->name('home');
+use App\Http\Controllers\Front\PostController as FrontPostController;
+use App\Http\Controllers\Front\CategoryController as FrontCategoryController;
+use App\Http\Controllers\Front\AuthorController as FrontAuthorController;
+use App\Http\Controllers\Front\ContactController as FrontContactController;
+use App\Http\Controllers\Front\CommentController as FrontCommentController;
 
-Route::get('/archive', function () {
-    return view('front.archive');
-})->name('archive');
+//Post routes
+Route::get('/', [FrontPostController::class, 'index'])->name('home');
+Route::get('/archive', [FrontPostController::class, 'archive'])->name('archive');
+Route::get('/search', [FrontPostController::class, 'search'])->name('search');
+Route::get('/post/{slug}', [FrontPostController::class, 'postDetail'])->name('post');
+//Comment routes
+Route::post('/comment', [FrontCommentController::class, 'store'])->name('comment.store');
+//Category route
+Route::get('/category/{slug}', [FrontCategoryController::class, 'index'])->name('category');
+//Author route
+Route::get('/author/{username}', [FrontAuthorController::class, 'show'])->name('author');
+//Contact
+Route::get('/contact-us', [FrontContactController::class, 'index'])->name('contact.index');
+Route::post('/contact-store', [FrontContactController::class, 'store'])->name('contact.store');
 
-Route::get('/category/{slug?}', function () {
-    return view('front.category');
-})->name('category');
-
-Route::get('/search', function () {
-    return view('front.search');
-})->name('search');
-
-Route::get('/author/{username}', function () {
-    return view('front.author');
-})->name('author');
-
-Route::get('/contact-us', function () {
-    return view('front.contact');
-})->name('contact');
-
-Route::get('/post/{slug}', function () {
-    return view('front.post-detail');
-})->name('post');
-
+//Admin routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin.check'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [AdminHomeController::class, 'index'])->name('dashboard');
 
     Route::prefix('category')->name('category.')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
-        Route::get('/show/{category}', [CategoryController::class, 'show'])->name('show');
-        Route::get('/create', [CategoryController::class, 'create'])->name('create');
-        Route::post('/store', [CategoryController::class, 'store'])->name('store');
-        Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('edit');
-        Route::put('/update/{category}', [CategoryController::class, 'update'])->name('update');
-        Route::delete('/destroy/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::get('/', [AdminCategoryController::class, 'index'])->name('index');
+        Route::get('/show/{category}', [AdminCategoryController::class, 'show'])->name('show');
+        Route::get('/create', [AdminCategoryController::class, 'create'])->name('create');
+        Route::post('/store', [AdminCategoryController::class, 'store'])->name('store');
+        Route::get('/edit/{category}', [AdminCategoryController::class, 'edit'])->name('edit');
+        Route::put('/update/{category}', [AdminCategoryController::class, 'update'])->name('update');
+        Route::delete('/destroy/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('post')->name('post.')->group(function () {
-        Route::get('/', [PostController::class, 'index'])->name('index');
-        Route::get('/show/{post}', [PostController::class, 'show'])->name('show');
-        Route::get('/create', [PostController::class, 'create'])->name('create');
-        Route::post('/store', [PostController::class, 'store'])->name('store');
-        Route::get('/edit/{post}', [PostController::class, 'edit'])->name('edit');
-        Route::put('/update/{post}', [PostController::class, 'update'])->name('update');
-        Route::delete('/destroy/{post}', [PostController::class, 'destroy'])->name('destroy');
-        Route::post('/status/{post}', [PostController::class, 'status'])->name('status');
+        Route::get('/', [AdminPostController::class, 'index'])->name('index');
+        Route::get('/show/{post}', [AdminPostController::class, 'show'])->name('show');
+        Route::get('/create', [AdminPostController::class, 'create'])->name('create');
+        Route::post('/store', [AdminPostController::class, 'store'])->name('store');
+        Route::get('/edit/{post}', [AdminPostController::class, 'edit'])->name('edit');
+        Route::put('/update/{post}', [AdminPostController::class, 'update'])->name('update');
+        Route::delete('/destroy/{post}', [AdminPostController::class, 'destroy'])->name('destroy');
+        Route::post('/status/{post}', [AdminPostController::class, 'status'])->name('status');
     });
 
     Route::prefix('comment')->name('comment.')->group(function () {
-        Route::get('/', [CommentController::class, 'index'])->name('index');
-        Route::get('/show/{comment}', [CommentController::class, 'show'])->name('show');
-        Route::post('/answer/{comment}', [CommentController::class, 'answer'])->name('answer');
-        Route::delete('/destroy/{comment}', [CommentController::class, 'destroy'])->name('destroy');
-        Route::post('/status/{comment}', [CommentController::class, 'status'])->name('status');
+        Route::get('/', [AdminCommentController::class, 'index'])->name('index');
+        Route::get('/show/{comment}', [AdminCommentController::class, 'show'])->name('show');
+        Route::post('/answer/{comment}', [AdminCommentController::class, 'answer'])->name('answer');
+        Route::delete('/destroy/{comment}', [AdminCommentController::class, 'destroy'])->name('destroy');
+        Route::post('/status/{comment}', [AdminCommentController::class, 'status'])->name('status');
     });
 
     Route::prefix('user')->name('user.')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::get('/create', [UserController::class, 'create'])->name('create');
-        Route::post('/store', [UserController::class, 'store'])->name('store');
-        Route::get('/show/{user}', [UserController::class, 'show'])->name('show');
-        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
-        Route::put('/update/{user}', [UserController::class, 'update'])->name('update');
-        Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+        Route::get('/show/{user}', [AdminUserController::class, 'show'])->name('show');
+        Route::get('/edit/{user}', [AdminUserController::class, 'edit'])->name('edit');
+        Route::put('/update/{user}', [AdminUserController::class, 'update'])->name('update');
+        Route::delete('/destroy/{user}', [AdminUserController::class, 'destroy'])->name('destroy');
     });
 });
 
