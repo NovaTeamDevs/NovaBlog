@@ -23,7 +23,7 @@ Route::post('/comment', [FrontCommentController::class, 'store'])->name('comment
 //Category route
 Route::get('/category/{slug}', [FrontCategoryController::class, 'index'])->name('category');
 //Author route
-Route::get('/author/{username}', [FrontAuthorController::class, 'show'])->name('author');
+Route::get('/author/{user}', [FrontAuthorController::class, 'show'])->name('author');
 //Contact
 Route::get('/contact-us', [FrontContactController::class, 'index'])->name('contact.index');
 Route::post('/contact-store', [FrontContactController::class, 'store'])->name('contact.store');
