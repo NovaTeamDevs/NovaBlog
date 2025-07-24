@@ -1,5 +1,5 @@
 @extends('front.layouts.master')
-@section('title', 'نوا بلاگ')
+@section('title', $pageTitle)
 
 @section('content')
     <!-- Main content start -->
@@ -14,37 +14,28 @@
             <!-- محتوای اصلی -->
             <div class="col-lg-9 order-lg-1">
                 <!-- فرم جستجو -->
-                <div class="mb-5 p-5  rounded" style="background: url('{{ asset('assets/images/blog-banner.jpg') }}') center/cover;">
+                <div class="mb-5 p-5  rounded"
+                     style="background: url('{{ asset('assets/images/blog-banner.jpg') }}') center/cover;">
                     <h1 class="mb-3">به نوا بلاگ خوش آمدید</h1>
-                    <form action="search.html" method="GET" class="d-flex justify-content-start">
-                        <input type="text" class="form-control w-50 me-2" placeholder="دنبال چه چیزی می‌گردی؟">
+                    <form action="{{ route('search') }}" method="GET" class="d-flex justify-content-start">
+                        <input type="text" class="form-control w-50 me-2" placeholder="دنبال چه چیزی می‌گردی؟"
+                               value="{{ request()->get('q') }}" name="q">
                         <button type="submit" class="btn btn-light">جستجو</button>
                     </form>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="mb-4">آخرین مقالات</h3>
-                    <a href="#" class="btn btn-link">مشاهده همه</a>
+                    <a href="{{ route('archive') }}" class="btn btn-link">مشاهده همه</a>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
+                    @forelse($posts as $post)
+                        <div class="col-md-6 mb-4">
+                            @include('front.partials.post-item', ['post' => $post])
+                        </div>
+                    @empty
+                        <p>مقاله ای یافت نشد!</p>
+                    @endforelse
                 </div>
             </div>
 

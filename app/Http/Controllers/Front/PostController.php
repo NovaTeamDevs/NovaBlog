@@ -10,21 +10,28 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('front.index');
+        $pageTitle = 'نوا بلاگ - وبلاگ با لاراول';
+        $posts = Post::orderByDesc('updated_at')
+                     ->take(6)
+                     ->get();
+        return view('front.index', compact('pageTitle', 'posts'));
     }
 
     public function archive()
     {
-        return view('front.archive');
+        $pageTitle = '';
+        return view('front.archive', compact('pageTitle'));
     }
 
     public function search(Request $request)
     {
-        return view('front.search');
+        $pageTitle = '';
+        return view('front.search', compact('pageTitle'));
     }
 
     public function postDetail(Post $slug)
     {
-        return view('front.post-detail');
+        $pageTitle = '';
+        return view('front.post-detail', compact('pageTitle'));
     }
 }

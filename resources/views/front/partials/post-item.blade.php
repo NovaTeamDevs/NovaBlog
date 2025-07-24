@@ -1,9 +1,8 @@
 <div class="card h-100">
-    <img src="assets/img/post.jpg" class="card-img-top" alt="مقاله تستی">
+    <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
     <div class="card-body">
-        <h5 class="card-title">مقاله تستی</h5>
-        <p class="card-text text-muted">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-            صنعت چاپ، و با استفاده از</p>
-        <a href="post-detail.html" class="btn btn-primary btn-sm">ادامه مطلب</a>
+        <h5 class="card-title">{{ $post->title }}</h5>
+        <p class="card-text text-muted">{{ Str::limit($post->content, 15) }}</p>
+        <a href="{{ route('post', $post->slug) }}" class="btn btn-primary btn-sm">ادامه مطلب</a>
     </div>
 </div>
