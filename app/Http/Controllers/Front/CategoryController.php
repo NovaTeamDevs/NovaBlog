@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(Category $slug)
+    public function index(Category $category)
     {
-        return view('front.category');
+        $pageTitle = 'نوا بلاگ - آرشیو دسته بندی ' . $category->name;
+        return view('front.category', compact('pageTitle', 'category'));
     }
 }

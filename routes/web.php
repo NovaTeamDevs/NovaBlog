@@ -21,7 +21,7 @@ Route::get('/post/{slug}', [FrontPostController::class, 'postDetail'])->name('po
 //Comment routes
 Route::post('/comment', [FrontCommentController::class, 'store'])->name('comment.store');
 //Category route
-Route::get('/category/{slug}', [FrontCategoryController::class, 'index'])->name('category');
+Route::get('/category/{category:slug}', [FrontCategoryController::class, 'index'])->name('category');
 //Author route
 Route::get('/author/{user}', [FrontAuthorController::class, 'show'])->name('author');
 //Contact

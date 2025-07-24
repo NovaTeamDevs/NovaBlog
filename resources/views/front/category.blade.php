@@ -1,5 +1,5 @@
 @extends('front.layouts.master')
-@section('title', 'نوا بلاگ - آرشیو دسته بندی')
+@section('title', $pageTitle)
 
 @section('content')
     <!-- Main content start -->
@@ -13,30 +13,20 @@
 
             <!-- محتوای اصلی -->
             <div class="col-lg-9 order-lg-1">
-                <h3 class="mb-4">دسته‌بندی: دسته بندی اول</h3>
+                <h3 class="mb-4">دسته‌بندی: {{ $category->name }}</h3>
                 <div class="row">
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        @include('front.partials.post-item')
-                    </div>
+                    @forelse($category->posts as $post)
+                        <div class="col-md-4 mb-4">
+                            @include('front.partials.post-item', ['post' => $post])
+                        </div>
+                    @empty
+                        <p>مقاله ای یافت نشد!</p>
+                    @endforelse
                 </div>
-            </div>
 
-            <!-- Pagination elements -->
+                {{ $category->posts()->paginate(12)->links() }}
+
+            </div>
 
         </div>
     </div>

@@ -1,12 +1,18 @@
 @extends('front.layouts.master')
-@section('title', 'نوا بلاگ - تماس با ما')
+@section('title', $pageTitle)
 
 @section('content')
     <!-- Main content start -->
     <div class="container my-5">
         <div class="container my-5">
             <h2 class="mb-4">تماس با ما</h2>
-            <form action="#" method="POST">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+            <form action="{{ route('contact.store') }}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label class="form-label">نام</label>
                     <input type="text" name="name" class="form-control" required>
