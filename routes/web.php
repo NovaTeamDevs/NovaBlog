@@ -17,7 +17,7 @@ use App\Http\Controllers\Front\CommentController as FrontCommentController;
 Route::get('/', [FrontPostController::class, 'index'])->name('home');
 Route::get('/archive', [FrontPostController::class, 'archive'])->name('archive');
 Route::get('/search', [FrontPostController::class, 'search'])->name('search');
-Route::get('/post/{slug}', [FrontPostController::class, 'postDetail'])->name('post');
+Route::get('/post/{post:slug}', [FrontPostController::class, 'postDetail'])->name('post');
 //Comment routes
 Route::post('/comment', [FrontCommentController::class, 'store'])->name('comment.store');
 //Category route

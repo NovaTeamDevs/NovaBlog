@@ -37,9 +37,9 @@ class PostController extends Controller
         return view('front.search', compact('pageTitle', 'posts'));
     }
 
-    public function postDetail(Post $slug)
+    public function postDetail(Post $post)
     {
-        $pageTitle = '';
-        return view('front.post-detail', compact('pageTitle'));
+        $pageTitle = 'نوا بلاگ - ' . $post->title;
+        return view('front.post-detail', compact('pageTitle', 'post'));
     }
 }
