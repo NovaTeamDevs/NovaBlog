@@ -40,6 +40,7 @@ class PostController extends Controller
     public function postDetail(Post $post)
     {
         $pageTitle = 'نوا بلاگ - ' . $post->title;
+        $post->increment('visits');
         return view('front.post-detail', compact('pageTitle', 'post'));
     }
 }

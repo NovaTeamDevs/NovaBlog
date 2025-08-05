@@ -51,6 +51,10 @@
                                     <td>1000 تا لایک</td>
                                 </tr>
                                 <tr>
+                                    <th style="width: 15%">بازدیدها</th>
+                                    <td>{{ $post->visits }}</td>
+                                </tr>
+                                <tr>
                                     <th style="width: 15%">وضعیت</th>
                                     <td id="status_badge">
                                         <span

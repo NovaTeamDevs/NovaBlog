@@ -48,6 +48,7 @@
                                                 <th>دسته بندی</th>
                                                 <th>نویسنده</th>
                                                 <th>وضعیت</th>
+                                                <th>بازدیدها</th>
                                                 <th style="width: 20%">عملیات</th>
                                             </tr>
                                         </thead>
@@ -66,6 +67,7 @@
                                                         <span
                                                             class="badge text-bg-{{ $post->status_color }}">{{ $post->status_title }}</span>
                                                     </td>
+                                                    <td>{{ $post->visits }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.post.show', $post) }}"
                                                             class="btn btn-primary" data-bs-title="نمایش"
