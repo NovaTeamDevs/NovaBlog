@@ -95,4 +95,28 @@ class Comment extends Model
             ->orderByDesc('created_at')
             ->first()->created_at ?? '';
     }
+
+    public function isPendingComment(){
+        if($this->status != CommentStatusEnum::Pending)
+            return false;
+
+        if(!auth()->check())
+            return false;
+
+        return $this->user->id == auth()->id();
+    }
+
+    public function isRejectedOrPendingCommentForUser()
+    {
+        if($this->status == CommentStatusEnum::Rejected)
+            return true;
+
+        if($this->status == CommentStatusEnum::Approved)
+            return false;
+
+        if(!auth()->check())
+            return true;
+
+        return $this->user->id != auth()->id();
+    }
 }

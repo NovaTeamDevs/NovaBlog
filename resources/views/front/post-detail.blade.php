@@ -1,6 +1,8 @@
 @extends('front.layouts.master')
 @section('title', $pageTitle)
 
+@use('App\Enum\CommentStatusEnum')
+
 @section('content')
     <!-- Main content start -->
     <div class="container my-5">
@@ -38,17 +40,18 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             @foreach($post->comments as $comment)
-                                @php if(!is_null($comment->parent_id) || $comment->status != App\Enum\CommentStatusEnum::Approved) continue; @endphp
+                                @php if(!is_null($comment->parent_id)) continue; @endphp
+                                @php if($comment->isRejectedOrPendingCommentForUser()) continue; @endphp
                                 <div class="mb-3">
                                     <div class="d-flex align-items-center mb-2">
                                         <img src="{{ $comment->user->user_avatar }}" alt="avatar" width="40" height="40"
                                              class="rounded-circle me-2">
-                                        <div>
+                                        <div class="">
                                             <div class="d-flex justify-content-start align-items-center gap-2">
                                                 <strong>{{ $comment->user->full_name }}</strong>
                                                 <div class="text-muted small">{{ verta($comment->created_at)->format('Y/m/d') }}</div>
                                             </div>
-                                            @if(($comment->user->id == auth()->user()->id) && $comment->status == App\Enum\CommentStatusEnum::Pending)
+                                            @if($comment->isPendingComment())
                                                 <!-- هشدار تأیید نشدن -->
                                                 <div class="alert alert-warning py-1 px-2 small">
                                                     نظر شما در انتظار تایید مدیر است.
@@ -64,15 +67,23 @@
 
                                     <!-- نمایش پاسخ‌ها -->
                                     @foreach($comment->answer as $answer)
-                                        @php if($answer->status != App\Enum\CommentStatusEnum::Approved) continue; @endphp
+                                        @php if($answer->isRejectedOrPendingCommentForUser()) continue; @endphp
                                         <div class="card mt-3 ms-4 border-start border-2 border-primary">
                                             <div class="card-body py-2 px-3">
                                                 <div class="d-flex align-items-center mb-1">
                                                     <img src="{{ $answer->user->user_avatar }}" alt="avatar" width="35" height="35"
                                                          class="rounded-circle me-2">
-                                                    <div class="d-flex justify-content-start align-items-center gap-2">
-                                                        <strong>{{ $answer->user->full_name }}</strong>
-                                                        <div class="text-muted small">{{ verta($answer->created_at)->format('Y/m/d') }}</div>
+                                                    <div class="">
+                                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                                            <strong>{{ $answer->user->full_name }}</strong>
+                                                            <div class="text-muted small">{{ verta($answer->created_at)->format('Y/m/d') }}</div>
+                                                        </div>
+                                                        @if($answer->isPendingComment())
+                                                            <!-- هشدار تأیید نشدن -->
+                                                            <div class="alert alert-warning py-1 px-2 small">
+                                                                پاسخ شما در انتظار تایید مدیر است.
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <p class="mt-3 mb-1">{{ $answer->comment }}</p>
