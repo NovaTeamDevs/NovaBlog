@@ -16,10 +16,12 @@
             <!-- محتوای اصلی -->
             <div class="col-lg-9 order-lg-1">
                 <div class="post-content card">
-                    <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" style="max-height: 600px;" alt="{{ $post->title }}">
+                    <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" style="max-height: 600px;"
+                         alt="{{ $post->title }}">
                     <div class="card-body">
                         <h1>{{ $post->title }}</h1>
-                        <p class="text-muted">{{ verta($post->created_at)->format('Y/m/d') }} | توسط <a href="{{ route('author', $post->author->id) }}">{{ $post->author->full_name }}</a></p>
+                        <p class="text-muted">{{ verta($post->created_at)->format('Y/m/d') }} | توسط <a
+                                href="{{ route('author', $post->author->id) }}">{{ $post->author->full_name }}</a></p>
 
                         <div class="content">{!! $post->content !!}</div>
                         <div class="mt-5">
@@ -27,7 +29,8 @@
                             @php $tags = explode(',', $post->tags); @endphp
                             @foreach($tags as $tag)
                                 @php $tag = trim($tag) @endphp
-                                <span class="border border-primary text-sm text-primary rounded py-0 px-2 me-1">{{ $tag }}</span>
+                                <span
+                                    class="border border-primary text-sm text-primary rounded py-0 px-2 me-1">{{ $tag }}</span>
                             @endforeach
                         </div>
                     </div>
@@ -49,7 +52,8 @@
                                         <div class="">
                                             <div class="d-flex justify-content-start align-items-center gap-2">
                                                 <strong>{{ $comment->user->full_name }}</strong>
-                                                <div class="text-muted small">{{ verta($comment->created_at)->format('Y/m/d') }}</div>
+                                                <div
+                                                    class="text-muted small">{{ verta($comment->created_at)->format('Y/m/d') }}</div>
                                             </div>
                                             @if($comment->isPendingComment())
                                                 <!-- هشدار تأیید نشدن -->
@@ -60,11 +64,12 @@
                                         </div>
                                     </div>
                                     <p class="mb-2">{{ $comment->comment }}</p>
-                                    @unless($comment->isPendingComment())
+                                    @unless($comment->isPendingComment() || !auth()->check())
                                         <button
                                             class="btn btn-sm btn-outline-secondary reply-btn"
                                             data-comment-id="{{ $comment->id }}"
-                                        >پاسخ</button>
+                                        >پاسخ
+                                        </button>
                                     @endunless
 
                                     <!-- نمایش پاسخ‌ها -->
@@ -73,12 +78,15 @@
                                         <div class="card mt-3 ms-4 border-start border-2 border-primary">
                                             <div class="card-body py-2 px-3">
                                                 <div class="d-flex align-items-center mb-1">
-                                                    <img src="{{ $answer->user->user_avatar }}" alt="avatar" width="35" height="35"
+                                                    <img src="{{ $answer->user->user_avatar }}" alt="avatar" width="35"
+                                                         height="35"
                                                          class="rounded-circle me-2">
                                                     <div class="">
-                                                        <div class="d-flex justify-content-start align-items-center gap-2">
+                                                        <div
+                                                            class="d-flex justify-content-start align-items-center gap-2">
                                                             <strong>{{ $answer->user->full_name }}</strong>
-                                                            <div class="text-muted small">{{ verta($answer->created_at)->format('Y/m/d') }}</div>
+                                                            <div
+                                                                class="text-muted small">{{ verta($answer->created_at)->format('Y/m/d') }}</div>
                                                         </div>
                                                         @if($answer->isPendingComment())
                                                             <!-- هشدار تأیید نشدن -->
@@ -94,7 +102,8 @@
                                     @endforeach
 
                                     <!-- فرم پاسخ مخفی (با جاوااسکریپت نمایش داده میشه) -->
-                                    <form action="{{ route('comment.store') }}" method="POST" class="reply-form mt-3 d-none" id="reply-form-{{ $comment->id }}">
+                                    <form action="{{ route('comment.store') }}" method="POST"
+                                          class="reply-form mt-3 d-none" id="reply-form-{{ $comment->id }}">
                                         @csrf
                                         <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                         <input type="hidden" name="post_id" value="{{ $post->id }}">
@@ -123,18 +132,26 @@
                 <div class="card mt-5">
                     <div class="card-header">ارسال نظر جدید</div>
                     <div class="card-body">
-                        <form action="{{ route('comment.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <div class="mb-3">
+                        @auth
+                            <form action="{{ route('comment.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                <div class="mb-3">
                                 <textarea
                                     name="comment"
                                     rows="4"
                                     class="form-control"
                                     placeholder="نظر خود را بنویسید..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">ارسال نظر</button>
+                            </form>
+                        @endauth
+
+                        @guest
+                            <div class="alert alert-primary">
+                                <p class="m-0">برای ارسال نظر شما باید وارد حساب کاربری خود شوید. <a href="{{ route('login') }}">ورود به حساب کاربری</a> </p>
                             </div>
-                            <button type="submit" class="btn btn-primary">ارسال نظر</button>
-                        </form>
+                        @endguest
                     </div>
                 </div>
                 <!-- Comment end -->
