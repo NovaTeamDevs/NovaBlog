@@ -65,7 +65,7 @@
                         <i class="nav-icon bi bi-chat-left-fill"></i>
                         <p>
                             نظرات
-                            <span class="nav-badge badge text-bg-danger me-3">6</span>
+                            <span class="nav-badge badge text-bg-danger me-3">{{ App\Models\Comment::where('status', App\Enum\CommentStatusEnum::Pending)->get()->count() }}</span>
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
                     </a>
