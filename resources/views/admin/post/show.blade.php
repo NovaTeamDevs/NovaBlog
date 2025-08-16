@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <th style="width: 15%">وضعیت</th>
-                                    <td id="status_badge">
+                                    <td id="status_badge{{ $post->id }}">
                                         <span
                                             class="badge bg-{{ $post->status_color }} py-2 px-3">{{ $post->status_title }}</span>
                                     </td>
@@ -65,21 +65,21 @@
                                     <th style="width: 20%">تغییر وضعیت</th>
                                     <td>
                                         <div class="position-relative">
-                                            <div class="d-flex align-items-center w-25" id="status_change">
-                                                <select name="status" id="status" class="form-select me-3">
+                                            <div class="d-flex align-items-center w-50" id="status_change{{ $post->id }}">
+                                                <select name="status" id="status{{ $post->id }}" class="form-select me-3">
                                                     @foreach (PostStatusEnum::cases() as $status)
                                                         <option value="{{ $status->value }}" @selected(old('status') == $status->value)>
                                                             {{ __('app.post_status.' . $status->value) }}</option>
                                                     @endforeach
                                                 </select>
                                                 <button class="btn btn-primary" type="button" onclick="changeStatus(this)"
-                                                    data-token="{{ csrf_token() }}"
+                                                    data-token="{{ csrf_token() }}" data-entityid="{{ $post->id }}"
                                                     data-url="{{ route('admin.post.status', $post) }}">
                                                     <i class="bi bi-arrow-clockwise"></i>
                                                 </button>
                                             </div>
                                             <div class="position-absolute d-none" style="top: 10%; right: 10%;"
-                                                id="status_spinner">
+                                                id="status_spinner{{ $post->id }}">
                                                 <div class="spinner-border text-primary" role="status">
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>

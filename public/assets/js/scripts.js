@@ -87,11 +87,11 @@ document.querySelectorAll("form").forEach(function (form) {
 function changeStatus(element) {
     let url = element.dataset.url;
     let token = element.dataset.token;
-    let comment_id = element.dataset.commentid;
-    let statusElement = document.querySelector('select#status' + comment_id);
-    let spinner = document.querySelector('#status_spinner'+ comment_id);
-    let status_form = document.querySelector('#status_change'+ comment_id);
-    let status_badge = document.querySelector('#status_badge'+ comment_id);
+    let entity_id = element.dataset.entityid;
+    let statusElement = document.querySelector('select#status' + entity_id);
+    let spinner = document.querySelector('#status_spinner'+ entity_id);
+    let status_form = document.querySelector('#status_change'+ entity_id);
+    let status_badge = document.querySelector('#status_badge'+ entity_id);
 
     spinner.classList.remove('d-none');
     status_form.classList.add('d-none');

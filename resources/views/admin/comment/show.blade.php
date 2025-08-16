@@ -75,7 +75,7 @@
                                                     </select>
                                                     <button class="btn btn-primary" type="button"
                                                             onclick="changeStatus(this)" data-token="{{ csrf_token() }}"
-                                                            data-commentid="{{ $comment->id }}"
+                                                            data-entityid="{{ $comment->id }}"
                                                             data-url="{{ route('admin.comment.status', $comment) }}">
                                                         <i class="bi bi-arrow-clockwise"></i>
                                                     </button>
@@ -128,7 +128,7 @@
                                                                     <button class="btn btn-primary" type="button"
                                                                             onclick="changeStatus(this)"
                                                                             data-token="{{ csrf_token() }}"
-                                                                            data-commentid="{{ $answer->id }}"
+                                                                            data-entityid="{{ $answer->id }}"
                                                                             data-url="{{ route('admin.comment.status', $answer) }}">
                                                                         <i class="bi bi-arrow-clockwise"></i>
                                                                     </button>
