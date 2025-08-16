@@ -60,10 +60,12 @@
                                         </div>
                                     </div>
                                     <p class="mb-2">{{ $comment->comment }}</p>
-                                    <button
-                                        class="btn btn-sm btn-outline-secondary reply-btn"
-                                        data-comment-id="{{ $comment->id }}"
-                                    >پاسخ</button>
+                                    @unless($comment->isPendingComment())
+                                        <button
+                                            class="btn btn-sm btn-outline-secondary reply-btn"
+                                            data-comment-id="{{ $comment->id }}"
+                                        >پاسخ</button>
+                                    @endunless
 
                                     <!-- نمایش پاسخ‌ها -->
                                     @foreach($comment->answer as $answer)
