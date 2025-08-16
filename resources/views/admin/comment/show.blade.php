@@ -22,71 +22,73 @@
                             <div class="col-md-6 col-12">
                                 <table class="table table-bordered table-light">
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">شماره نظر</th>
-                                            <td>{{ $comment->id }}</td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">پست</th>
-                                            <td>{{ $comment->post->title }}</td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">نویسنده</th>
-                                            <td>{{ $comment->comment_user_name }}</td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">ایمیل</th>
-                                            <td>{{ $comment->comment_user_email }}</td>
-                                        </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">شماره نظر</th>
+                                        <td>{{ $comment->id }}</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">پست</th>
+                                        <td>{{ $comment->post->title }}</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">نویسنده</th>
+                                        <td>{{ $comment->comment_user_name }}</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">ایمیل</th>
+                                        <td>{{ $comment->comment_user_email }}</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col-md-6 col-12">
                                 <table class="table table-bordered table-light">
                                     <tbody>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">تاریخ ارسال</th>
-                                            <td>{{ verta($comment->created_at)->format('%d %B %Y - H:s:i') }}</td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">تاریخ آخرین پاسخ</th>
-                                            <td>{{ verta($comment->last_answer_date)->format('%d %B %Y - H:s:i') }}
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">وضعیت</th>
-                                            <td id="status_badge">
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">تاریخ ارسال</th>
+                                        <td>{{ verta($comment->created_at)->format('%d %B %Y - H:s:i') }}</td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">تاریخ آخرین پاسخ</th>
+                                        <td>{{ verta($comment->last_answer_date)->format('%d %B %Y - H:s:i') }}
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">وضعیت</th>
+                                        <td id="status_badge{{ $comment->id }}">
                                                 <span
                                                     class="badge bg-{{ $comment->status_color }}">{{ $comment->status_title }}</span>
-                                            </td>
-                                        </tr>
-                                        <tr class="align-middle">
-                                            <th style="width: 20%">تغییر وضعیت</th>
-                                            <td>
-                                                <div class="position-relative">
-                                                    <div class="d-flex align-items-center w-25" id="status_change">
-                                                        <select name="status" id="status" class="form-select me-3">
-                                                            @foreach (CommentStatusEnum::cases() as $status)
-                                                                <option value="{{ $status->value }}"
-                                                                    @selected(old('status', $comment->status->value) == $status->value)>
-                                                                    {{ __('app.comment_status.' . $status->name) }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <button class="btn btn-primary" type="button"
+                                        </td>
+                                    </tr>
+                                    <tr class="align-middle">
+                                        <th style="width: 20%">تغییر وضعیت</th>
+                                        <td>
+                                            <div class="position-relative">
+                                                <div class="d-flex align-items-center w-50" id="status_change{{ $comment->id }}">
+                                                    <select name="status" id="status{{ $comment->id }}"
+                                                            class="form-select me-3">
+                                                        @foreach (CommentStatusEnum::cases() as $status)
+                                                            <option value="{{ $status->value }}"
+                                                                @selected(old('status', $comment->status->value) == $status->value)>
+                                                                {{ __('app.comment_status.' . $status->name) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <button class="btn btn-primary" type="button"
                                                             onclick="changeStatus(this)" data-token="{{ csrf_token() }}"
+                                                            data-commentid="{{ $comment->id }}"
                                                             data-url="{{ route('admin.comment.status', $comment) }}">
-                                                            <i class="bi bi-arrow-clockwise"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="position-absolute d-none" style="top: 10%; right: 10%;"
-                                                        id="status_spinner">
-                                                        <div class="spinner-border text-primary" role="status">
-                                                            <span class="visually-hidden">Loading...</span>
-                                                        </div>
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="position-absolute d-none" style="top: 10%; right: 10%;"
+                                                     id="status_spinner{{ $comment->id }}">
+                                                    <div class="spinner-border text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
                                                     </div>
                                                 </div>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -99,14 +101,52 @@
                                         <div class="border rounded  mt-5 p-3">
                                             <h5 class="fw-bold">پاسخ ها :</h5>
                                             @foreach ($comment->answer as $answer)
-                                                <div class="border rounded p-2 mb-1">
-                                                    <span class="text-muted">
-                                                        پاسخ شماره : {{ $answer->id }} - تاریخ پاسخ :
-                                                        {{ verta($answer->created_at)->format('%d %B %Y - H:s:i') }} - توسط
-                                                        :
-                                                        {{ $answer->comment_user_name }}</span>
-                                                    <hr>
-                                                    <p class="m-0">{{ $answer->comment }}</p>
+                                                <div class="card mb-2">
+                                                    <div class="card-header d-flex align-items-center gap-3">
+                                                        <span class="text-muted">
+                                                            پاسخ شماره : {{ $answer->id }} - تاریخ پاسخ :
+                                                            {{ verta($answer->created_at)->format('%d %B %Y - H:s:i') }} - توسط
+                                                            :
+                                                            {{ $answer->comment_user_name }}
+                                                        </span>
+                                                        <div class="status d-flex align-items-center gap-3">
+                                                            <div id="status_badge{{ $answer->id }}">
+                                                                <span
+                                                                    class="badge bg-{{ $answer->status_color }}">{{ $answer->status_title }}</span>
+                                                            </div>
+                                                            <div class="position-relative">
+                                                                <div class="d-flex align-items-center"
+                                                                     id="status_change{{ $answer->id }}">
+                                                                    <select name="status" id="status{{ $answer->id }}"
+                                                                            class="form-select me-3">
+                                                                        @foreach (CommentStatusEnum::cases() as $status)
+                                                                            <option value="{{ $status->value }}"
+                                                                                @selected(old('status', $answer->status->value) == $status->value)>
+                                                                                {{ __('app.comment_status.' . $status->name) }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <button class="btn btn-primary" type="button"
+                                                                            onclick="changeStatus(this)"
+                                                                            data-token="{{ csrf_token() }}"
+                                                                            data-commentid="{{ $answer->id }}"
+                                                                            data-url="{{ route('admin.comment.status', $answer) }}">
+                                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="position-absolute d-none"
+                                                                     style="top: 10%; right: 10%;"
+                                                                     id="status_spinner{{ $answer->id }}">
+                                                                    <div class="spinner-border text-primary"
+                                                                         role="status">
+                                                                        <span class="visually-hidden">Loading...</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <p class="m-0">{{ $answer->comment }}</p>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -124,11 +164,12 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <textarea name="content" id="content" cols="5" rows="10" class="form-control">{{ old('content') }}</textarea>
+                                <textarea name="content" id="content" cols="5" rows="10"
+                                          class="form-control">{{ old('content') }}</textarea>
                                 @error('content')
-                                    <div class="text-danger">
-                                        <p>{{ $message }}</p>
-                                    </div>
+                                <div class="text-danger">
+                                    <p>{{ $message }}</p>
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -136,7 +177,8 @@
                             <a href="{{ route('admin.comment.index') }}" class="btn btn-outline-secondary"><i
                                     class="bi bi-chevron-left me-2"></i>بازگشت</a>
                             <button type="submit" class="btn btn-success"><i class="bi bi-save me-2"></i>ذخیره
-                                پاسخ</button>
+                                پاسخ
+                            </button>
                         </div>
                     </div>
                 </form>
